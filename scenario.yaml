@@ -1,0 +1,9 @@
+meta:
+  title: My Very First Presentation!
+steps:
+- cmd: "echo 'hello world!'"
+- cmd: "echo 'hello world 2!'"
+- cmd: "echo 'hello world 3!' &&"
+  enter: false
+- cmd: "echo 'hello world 3!' && \\"
+- cmd: "echo 'hello world 3!'"

@@ -1,0 +1,12 @@
+[package]
+name = "joystick_tool"
+version = "0.1.0"
+authors = ["Maarten Hoogendoorn <maarten@moretea.nl>"]
+edition = "2018"
+
+[dependencies]
+sdl2 = { version = ">=0.32.1", features=["image", "ttf"]}
+libxdo = ">=0.6.0"
+serde = "1.0"
+serde_derive = "1.0"
+serde_yaml = "0.8"
