@@ -167,8 +167,14 @@ fn main() {
                         }
                     }
                 }
-                Event::JoyButtonDown { button_idx: BUTTON_A, .. } |
-                Event::JoyButtonDown { button_idx: BUTTON_L, .. } => {
+                Event::JoyButtonDown {
+                    button_idx: BUTTON_A,
+                    ..
+                }
+                | Event::JoyButtonDown {
+                    button_idx: BUTTON_L,
+                    ..
+                } => {
                     // A -> Send page up
                     if current_mode == ViewMode::Demo {
                         for _ in 1..SCROLL_LINES {
@@ -178,8 +184,14 @@ fn main() {
                         xdo.send_keysequence("Page_Up", 0).unwrap();
                     }
                 }
-                Event::JoyButtonDown { button_idx: BUTTON_B, .. } |
-                Event::JoyButtonDown { button_idx: BUTTON_R, .. } => {
+                Event::JoyButtonDown {
+                    button_idx: BUTTON_B,
+                    ..
+                }
+                | Event::JoyButtonDown {
+                    button_idx: BUTTON_R,
+                    ..
+                } => {
                     // B -> Send page down
                     if current_mode == ViewMode::Demo {
                         for _ in 1..SCROLL_LINES {
@@ -192,7 +204,10 @@ fn main() {
                         xdo.send_keysequence("Page_Down", 0).unwrap();
                     }
                 }
-                Event::JoyButtonDown { button_idx: BUTTON_SELECT, .. } => {
+                Event::JoyButtonDown {
+                    button_idx: BUTTON_SELECT,
+                    ..
+                } => {
                     // Select; switch between live demo and presentation.
                     current_mode = current_mode.other();
 
@@ -205,7 +220,10 @@ fn main() {
                         }
                     }
                 }
-                Event::JoyButtonDown { button_idx: BUTTON_START, .. } => {
+                Event::JoyButtonDown {
+                    button_idx: BUTTON_START,
+                    ..
+                } => {
                     // Start; execute command. Jump to next item in line.
                     if current_mode == ViewMode::Demo {
                         xdo.enter_text(&current_step.cmd, 50000).unwrap();
@@ -233,7 +251,7 @@ fn main() {
                 } => {
                     reload_scenario = true;
                 }
-                _ => {/* ignore other events */ }
+                _ => { /* ignore other events */ }
             }
         }
 
