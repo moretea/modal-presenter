@@ -167,7 +167,8 @@ fn main() {
                         }
                     }
                 }
-                Event::JoyButtonDown { button_idx: BUTTON_A, .. } => {
+                Event::JoyButtonDown { button_idx: BUTTON_A, .. } |
+                Event::JoyButtonDown { button_idx: BUTTON_L, .. } => {
                     // A -> Send page up
                     if current_mode == ViewMode::Demo {
                         for _ in 1..SCROLL_LINES {
@@ -177,7 +178,8 @@ fn main() {
                         xdo.send_keysequence("Page_Up", 0).unwrap();
                     }
                 }
-                Event::JoyButtonDown { button_idx: BUTTON_B, .. } => {
+                Event::JoyButtonDown { button_idx: BUTTON_B, .. } |
+                Event::JoyButtonDown { button_idx: BUTTON_R, .. } => {
                     // B -> Send page down
                     if current_mode == ViewMode::Demo {
                         for _ in 1..SCROLL_LINES {
