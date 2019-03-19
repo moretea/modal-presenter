@@ -283,7 +283,11 @@ fn main() {
 
             let TextureQuery { width, height, .. } = texture.query();
 
-            let target = Rect::new((window_width / 2 - width / 2) as i32, 64, width, height);
+            // Let's do a checked sub to make sure that we don't underflow the left position.
+            let left = (*window_width as i32 / 2)
+                .checked_sub(width as i32 / 2)
+                .unwrap_or(0) as i32;
+            let target = Rect::new(left, 64, width, height);
             canvas.copy(&texture, None, Some(target)).unwrap();
 
             top = (64 /* top margin */ + height + 64/* margin between mode and next snippet */)
