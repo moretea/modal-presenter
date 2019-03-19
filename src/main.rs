@@ -29,6 +29,17 @@ struct Step {
     enter: Option<bool>,
 }
 
+// Button configuration for NES30.
+const BUTTON_SELECT: u8 = 10;
+const BUTTON_START: u8 = 11;
+const BUTTON_L: u8 = 6;
+const BUTTON_R: u8 = 7;
+const BUTTON_A: u8 = 0;
+const BUTTON_B: u8 = 1;
+
+const BUTTON_X: u8 = 3;
+const BUTTON_Y: u8 = 4;
+
 impl Step {
     fn press_enter(&self) -> bool {
         self.enter.is_none() || self.enter.unwrap() == true
@@ -156,8 +167,8 @@ fn main() {
                         }
                     }
                 }
-                Event::JoyButtonDown { button_idx: 0, .. } => {
-                    // A -> Send pagedown
+                Event::JoyButtonDown { button_idx: BUTTON_A, .. } => {
+                    // A -> Send page up
                     if current_mode == ViewMode::Demo {
                         for _ in 1..SCROLL_LINES {
                             xdo.send_keysequence("ctrl+shift+Up", 0).unwrap();
@@ -166,8 +177,8 @@ fn main() {
                         xdo.send_keysequence("Page_Up", 0).unwrap();
                     }
                 }
-                Event::JoyButtonDown { button_idx: 1, .. } => {
-                    // B -> Send pageup
+                Event::JoyButtonDown { button_idx: BUTTON_B, .. } => {
+                    // B -> Send page down
                     if current_mode == ViewMode::Demo {
                         for _ in 1..SCROLL_LINES {
                             xdo.send_keysequence("ctrl+shift+Down", 0).unwrap();
@@ -179,7 +190,7 @@ fn main() {
                         xdo.send_keysequence("Page_Down", 0).unwrap();
                     }
                 }
-                Event::JoyButtonDown { button_idx: 8, .. } => {
+                Event::JoyButtonDown { button_idx: BUTTON_SELECT, .. } => {
                     // Select; switch between live demo and presentation.
                     current_mode = current_mode.other();
 
@@ -192,7 +203,7 @@ fn main() {
                         }
                     }
                 }
-                Event::JoyButtonDown { button_idx: 9, .. } => {
+                Event::JoyButtonDown { button_idx: BUTTON_START, .. } => {
                     // Start; execute command. Jump to next item in line.
                     if current_mode == ViewMode::Demo {
                         xdo.enter_text(&current_step.cmd, 50000).unwrap();
